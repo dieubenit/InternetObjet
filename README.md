@@ -1,7 +1,7 @@
 # Master Informatique SIRAV
 
 ### Projet IOT
-#### Module Internet des Objets
+### Module Internet des Objets
 ## Auteur : Innocent O et Guillaume L
  
 ##### Objet:
