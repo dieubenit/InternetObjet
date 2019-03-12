@@ -12,10 +12,10 @@ public class LaucherMM1 {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("choississez M/M/1 = 1(par default), M/D/1 = 2 :");
 		int val=scanner.nextInt();
-		if(val==1){
-			SimulationMM1.exec();
-		}else{
+		if(val==2){
 			SimulationMD1.exec();
+		}else{
+			SimulationMM1.exec();
 		}
 
 	}
