@@ -9,7 +9,7 @@ public class Costumers {
 	
 	public Costumers(double TimesArrive, double TimeService){
 		this.tempsArrive=TimesArrive;
-		this.tempsService=tempsService;
+		this.tempsService=TimeService;
 		
 	}
 

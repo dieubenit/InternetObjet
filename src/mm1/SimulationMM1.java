@@ -14,14 +14,21 @@ public class SimulationMM1 {
 	Queue qe;
 	double t;
 	public static double tempsMoyenneAttente;
+	public static double tempsVarianceAttente;
 	public static double nbMoyenCostumers;
+	public static double confianceAttente;
+	public static double tempsMoyenneService;
+	public static double tempsVarianceService;
+	public static double confianceService;
+	public static int costumerTotal;
+	public static long debutSimulation;
 
 	public SimulationMM1 (double lambda, double mu) {
 		this.lambda = lambda;
 		this.mu = mu;
 		qe = new Queue();
 		liste= new ListEvents();
-		long beginTime = System.currentTimeMillis();
+		debutSimulation = System.currentTimeMillis();
 	}
 	public double expo(double taux){
 		return -Math.log(Math.random())/taux;
@@ -67,17 +74,23 @@ public class SimulationMM1 {
 		}
 
 		tempsMoyenneAttente = qe.getTempsMoyensAttente();
+		tempsVarianceAttente= qe.getVarianceWaitingTime();
 		//System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente);
 		nbMoyenCostumers = qe.getNbMoyenCostumersQueue();
 		//System.out.println("Nombre de costumers : "+nbMoyenCostumers);
+		confianceAttente=qe.getConfiance95(tempsVarianceAttente);
+		tempsMoyenneService=qe.getMeanSojournTime();
+		tempsVarianceService=qe.getVarianceSojournTime();
+		confianceService=qe.getConfiance95(tempsVarianceService);
+		costumerTotal=qe.getNombreCostumers();
 	}
 
-	public static void main(String[] args) {
+	public static void exec() {
 
 		Scanner scanner = new Scanner(System.in);
 		double Wmu = 0.0D;
 		double Wlambda = 0.0D;
-		System.out.println("=============== RAPPORT DE SIMULATION ===============");
+		System.out.println("=============== SIMULATION M/M/1 ===============");
 		System.out.println("");
 		System.out.println("Saisir la valeur de lambda: ");
 		Wlambda = Double.parseDouble(scanner.nextLine());
@@ -87,14 +100,19 @@ public class SimulationMM1 {
 		double duree = Double.parseDouble(scanner.nextLine());;
 		SimulationMM1 slt = new SimulationMM1(Wlambda, Wmu);
 		slt.simulation(duree);
-		
-		//System.out.println("Calculation time: " + (System.currentTimeMillis() - beginTime) * 0.001D + 
-			   //   " seconds");
-		System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente);
-		//System.out.println("Var. waiting time: " + qe.getVarianceWaitingTime());
-		//System.out.println("Mean sojourn time: " + qe.getMeanSojournTime());
-		//System.out.println("Var. sojourn time: " + qe.getVarianceSojournTime());
-		System.out.println("Nombre de costumers : "+nbMoyenCostumers);
+
+		System.out.println("=============== RAPPORT DE SIMULATION ===============");
+		System.out.println("");
+		System.out.println("Calculation time: " + (System.currentTimeMillis() - debutSimulation) * 0.001D + 
+			      " seconds");
+		System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente
+				+" \n intervalle de confiance : +_ "+ confianceAttente);
+		System.out.println("Variance temps d'attente : "+tempsVarianceAttente);
+		System.out.println("Temps moyenne de service : "+tempsMoyenneService
+				+" \n intervalle de confiance : +_ "+ confianceAttente);
+		System.out.println("Variance temps de service : "+tempsVarianceService);
+		System.out.println("Nombre de costumers moyen servi : "+nbMoyenCostumers);
+		System.out.println("Nombre total de costumers : "+costumerTotal);
 
 	}
 	
@@ -110,3 +128,4 @@ System.out.println("Calculation time: " +
     System.out.println("Mean nr. of. customers: " + 
        q.getMeanNumberOfCustomers());
 */
+

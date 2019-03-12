@@ -19,6 +19,8 @@ public class Queue {
 		theCostumers = new Vector();
 		this.sommeW = 0.0D;
 		this.sommeW2 = 0.0D;
+		this.sommeS = 0.0D;
+		this.sommeS2 = 0.0D;
 		this.nbCostumers = 0;
 		this.surface = 0.0D;
 		this.t = 0.0D;
@@ -66,10 +68,7 @@ public class Queue {
 	{
 		return this.nbCostumers;
 	}
-	//
-	public double getMeanWaitingTime(){
-   return this.sommeW / this.nbCostumers;
- }
+
 	//
 	public double getMeanSojournTime()
 	  {
@@ -84,5 +83,13 @@ public class Queue {
 	 {
 	    return (this.sommeS2 - this.sommeS * this.sommeS / this.nbCostumers) / (this.nbCostumers - 1);
    }
+	
+	
+	public double getConfiance95(double variance){
+		//calcul d'intervale de confiance : Za/2 (a=%de confiance, içi 0,95) a/2 = 0,475, avec la table de Z on a Z(a/2=0,475)=1,96
+		// Z*ecart type/racine(moynne)
+		double z=1.96;
+		return z*Math.sqrt(variance)/Math.sqrt(this.nbCostumers);
+	}
 
 }

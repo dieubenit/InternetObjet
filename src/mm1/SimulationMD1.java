@@ -7,21 +7,28 @@ import mm1.FES;
 import mm1.ListEvents;
 import mm1.Queue;
 
-public class SimulationMD2 {
+public class SimulationMD1 {
 	double lambda;
 	double mu;
 	ListEvents liste;
 	Queue qe;
 	double t;
 	public static double tempsMoyenneAttente;
+	public static double tempsVarianceAttente;
 	public static double nbMoyenCostumers;
+	public static double confianceAttente;
+	public static double tempsMoyenneService;
+	public static double tempsVarianceService;
+	public static double confianceService;
+	public static int costumerTotal;
+	public static long debutSimulation;
 
-	public SimulationMD2 (double lambda, double mu) {
+	public SimulationMD1 (double lambda, double mu) {
 		this.lambda = lambda;
 		this.mu = mu;
 		qe = new Queue();
 		liste= new ListEvents();
-		long beginTime = System.currentTimeMillis();
+		debutSimulation = System.currentTimeMillis();
 	}
 	public double expo(double taux){
 		return -Math.log(Math.random())/taux;
@@ -67,17 +74,23 @@ public class SimulationMD2 {
 		}
 
 		tempsMoyenneAttente = qe.getTempsMoyensAttente();
+		tempsVarianceAttente= qe.getVarianceWaitingTime();
 		//System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente);
 		nbMoyenCostumers = qe.getNbMoyenCostumersQueue();
 		//System.out.println("Nombre de costumers : "+nbMoyenCostumers);
+		confianceAttente=qe.getConfiance95(tempsVarianceAttente);
+		tempsMoyenneService=qe.getMeanSojournTime();
+		tempsVarianceService=qe.getVarianceSojournTime();
+		confianceService=qe.getConfiance95(tempsVarianceService);
+		costumerTotal=qe.getNombreCostumers();
 	}
 
-	public static void main(String[] args) {
+	public static void exec() {
 
 		Scanner scanner = new Scanner(System.in);
 		double Wmu = 0.0D;
 		double Wlambda = 0.0D;
-		System.out.println("=============== RAPPORT DE SIMULATION ===============");
+		System.out.println("=============== SIMULATION M/D/1 ===============");
 		System.out.println("");
 		System.out.println("Saisir la valeur de lambda: ");
 		Wlambda = Double.parseDouble(scanner.nextLine());
@@ -85,11 +98,22 @@ public class SimulationMD2 {
 		Wmu = Double.parseDouble(scanner.nextLine());
 		System.out.println("Saisir la durée de la simulation: ");
 		double duree = Double.parseDouble(scanner.nextLine());;
-		SimulationMD2 slt = new SimulationMD2(Wlambda, Wmu);
+		SimulationMD1 slt = new SimulationMD1(Wlambda, Wmu);
 		slt.simulation(duree);
-		System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente);
-		System.out.println("Nombre de costumers : "+nbMoyenCostumers);
+
+		System.out.println("=============== RAPPORT DE SIMULATION ===============");
+		System.out.println("");
+		System.out.println("Calculation time: " + (System.currentTimeMillis() - debutSimulation) * 0.001D + 
+			      " seconds");
+		System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente
+				+" \n intervalle de confiance : +_ "+ confianceAttente);
+		System.out.println("Variance temps d'attente : "+tempsVarianceAttente);
+		System.out.println("Temps moyenne de service : "+tempsMoyenneService
+				+" \n intervalle de confiance : +_ "+ confianceAttente);
+		System.out.println("Variance temps de service : "+tempsVarianceService);
+		System.out.println("Nombre de costumers moyen servi : "+nbMoyenCostumers);
+		System.out.println("Nombre total de costumers : "+costumerTotal);
 
 	}
-	
+
 }
