@@ -106,10 +106,10 @@ public class SimulationMM1 {
 		System.out.println("Calculation time: " + (System.currentTimeMillis() - debutSimulation) * 0.001D + 
 			      " seconds");
 		System.out.println("Temps moyenne d'attente : "+tempsMoyenneAttente
-				+" \n intervalle de confiance : +_ "+ confianceAttente);
+				+" \n Intervalle de confiance : +_ "+ confianceAttente);
 		System.out.println("Variance temps d'attente : "+tempsVarianceAttente);
 		System.out.println("Temps moyenne de service : "+tempsMoyenneService
-				+" \n intervalle de confiance : +_ "+ confianceAttente);
+				+" \n Intervalle de confiance : +_ "+ confianceService);
 		System.out.println("Variance temps de service : "+tempsVarianceService);
 		System.out.println("Nombre de costumers moyen servi : "+nbMoyenCostumers);
 		System.out.println("Nombre total de costumers : "+costumerTotal);
@@ -117,15 +117,4 @@ public class SimulationMM1 {
 	}
 	
 }
-/*
-System.out.println("Calculation time: " + 
-      (System.currentTimeMillis() - beginTime) * 0.001D + 
-      " seconds");
-    System.out.println("Mean waiting time: " + q.getMeanWaitingTime());
-    System.out.println("Var. waiting time: " + q.getVarianceWaitingTime());
-    System.out.println("Mean sojourn time: " + q.getMeanSojournTime());
-    System.out.println("Var. sojourn time: " + q.getVarianceSojournTime());
-    System.out.println("Mean nr. of. customers: " + 
-       q.getMeanNumberOfCustomers());
-*/
 

@@ -109,7 +109,7 @@ public class SimulationMD1 {
 				+" \n intervalle de confiance : +_ "+ confianceAttente);
 		System.out.println("Variance temps d'attente : "+tempsVarianceAttente);
 		System.out.println("Temps moyenne de service : "+tempsMoyenneService
-				+" \n intervalle de confiance : +_ "+ confianceAttente);
+				+" \n intervalle de confiance : +_ "+ confianceService);
 		System.out.println("Variance temps de service : "+tempsVarianceService);
 		System.out.println("Nombre de costumers moyen servi : "+nbMoyenCostumers);
 		System.out.println("Nombre total de costumers : "+costumerTotal);
